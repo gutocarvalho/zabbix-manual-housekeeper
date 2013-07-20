@@ -1,0 +1,9 @@
+Manual housekeeper for Zabbix - MYSQL Only
+
+If you need a PGSQL Version go to https://github.com/jalexandre0/zabbix/blob/master/scripts/housekeeping.sh
+
+Thanks to @Jalexandre0 to create the orginal script for PGSQL.
+
+[s]
+Guto
+
