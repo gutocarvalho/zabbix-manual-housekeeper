@@ -22,11 +22,11 @@
 echo $(date +%d/%m/%Y-%H:%M)
 
 # Connection settings
-ZBX_CONN="/usr/local/bin/mysql"
-ZBX_DATA="database_name"
-ZBX_USER="username"
-ZBX_PASS="password"
-ZBX_HOST="10.138.xx.xx"
+ZBX_CONN="$(which mysql)"
+read -p "Enter Database name" ZBX_DATA
+read -p "Enter Database user" ZBX_USER
+read -p "Enter Database password" ZBX_PASS
+read -p "Enter Database host" ZBX_HOST
 
 #One year and month ago in Unix Timestamp
 ONE_YEAR_AGO=$(expr `date +%s` - 31536000)
@@ -36,6 +36,7 @@ ONE_MONTH_AGO=$(expr `date +%s` -  2678400)
 #Queries for one month ago
 MONTH_TABLES="history history_uint history_str history_text history_log"
 for table in $MONTH_TABLES;do
+	echo "Deleting from table $table "
 	DELETES=$( $ZBX_CONN -u $ZBX_USER $ZBX_DATA -p$ZBX_PASS -h $ZBX_HOST -e "delete from $table where clock < $ONE_MONTH_AGO ;" )
 	echo " $DELETES from table $table "
 done
@@ -43,6 +44,7 @@ done
 #Queries for one year ago
 YEAR_TABLES="alerts trends trends_uint"
 for table in $YEAR_TABLES;do
+	echo "Deleting from table $table "
 	DELETES=$( $ZBX_CONN -u $ZBX_USER $ZBX_DATA -p$ZBX_PASS -h $ZBX_HOST -e "delete from $table where clock < $ONE_YEAR_AGO ;" )
 	echo "$DELETES from table $table"
 done
