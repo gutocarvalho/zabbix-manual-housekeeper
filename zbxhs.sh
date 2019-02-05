@@ -22,7 +22,7 @@
 echo $(date +%d/%m/%Y-%H:%M)
 
 # Connection settings
-ZBX_CONN="/usr/local/bin/mysql"
+ZBX_CONN="$(which mysql)"
 ZBX_DATA="database_name"
 ZBX_USER="username"
 ZBX_PASS="password"
